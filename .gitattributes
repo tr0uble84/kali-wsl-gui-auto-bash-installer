@@ -1,0 +1,3 @@
+# Ensure shell and PowerShell scripts use LF (fixes WSL/bash "command not found: $'\r'" errors)
+*.sh text eol=lf
+*.ps1 text eol=lf

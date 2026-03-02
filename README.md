@@ -49,10 +49,11 @@ Approve the UAC prompt; the installer will run in the new Administrator window. 
    cd "%USERPROFILE%\Documents\Install-Kali"
    ```
    If you cloned the repo elsewhere, use that path instead.
-3. Run:
+3. Run (use `-ExecutionPolicy Bypass` if you get "running scripts is disabled"):
    ```powershell
-   .\install-wsl-kali.ps1
+   powershell -ExecutionPolicy Bypass -File .\install-wsl-kali.ps1
    ```
+   Or: `.\install-wsl-kali.ps1` (if your execution policy already allows scripts).
 4. If prompted, **reboot** after `wsl --install`, then run the script again (use `-SkipWslInstall` if WSL is already installed).
 
 ### Option 2: Kali already installed — only GUI setup
@@ -60,8 +61,9 @@ Approve the UAC prompt; the installer will run in the new Administrator window. 
 From **PowerShell as Administrator** (with `install-kali-gui.sh` in this folder):
 
 ```powershell
-.\install-wsl-kali.ps1 -RunGuiSetupOnly
+powershell -ExecutionPolicy Bypass -File .\install-wsl-kali.ps1 -RunGuiSetupOnly
 ```
+(If you get "scripts is disabled", the above bypasses it. Otherwise you can use `.\install-wsl-kali.ps1 -RunGuiSetupOnly`.)
 
 Or inside Kali:
 
@@ -158,6 +160,10 @@ Then run `wsl --shutdown` and reopen WSL for it to take effect.
 
 ## Troubleshooting
 
+- **"Running scripts is disabled" / execution policy:** Run with bypass:  
+  `powershell -ExecutionPolicy Bypass -File .\install-wsl-kali.ps1`  
+  (Add `-RunGuiSetupOnly` or other parameters as needed.)
+- **`$'\r': command not found` / `invalid option` in bash:** The script had Windows (CRLF) line endings. The repo uses `.gitattributes` so `install-kali-gui.sh` is stored with LF; re-download or pull the latest. To fix a local copy in WSL: `sed -i 's/\r$//' install-kali-gui.sh`
 - **GUI not launching:** In PowerShell (Admin): `wsl --update`
 - **Black screen:** In Kali: `kex --win --stop` then `kex --win -s`
 - **Check WSL version:** `wsl -l -v` — Kali should show version **2**

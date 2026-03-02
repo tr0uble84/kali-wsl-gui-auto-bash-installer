@@ -47,6 +47,17 @@ function Get-WslPath {
 
 # --- Step 0: Run GUI setup only (already have WSL + Kali) ---
 if ($RunGuiSetupOnly) {
+    $kaliExists = wsl -l -q 2>$null | Where-Object { $_ -eq $distroName }
+    if (-not $kaliExists) {
+        Write-Err "Kali Linux is not installed in WSL (no distribution named '$distroName')."
+        Write-Host ""
+        Write-Host "Install Kali first, then run GUI setup again. Options:" -ForegroundColor Yellow
+        Write-Host "  1. Run this script WITHOUT -RunGuiSetupOnly to install WSL + Kali:" -ForegroundColor Yellow
+        Write-Host "     powershell -ExecutionPolicy Bypass -File .\install-wsl-kali.ps1" -ForegroundColor Cyan
+        Write-Host "  2. Or install Kali manually: wsl --install -d kali-linux" -ForegroundColor Cyan
+        Write-Host "     Then complete first-time setup (username/password) and run this again with -RunGuiSetupOnly." -ForegroundColor Yellow
+        exit 1
+    }
     if (-not (Test-Path $GuiScriptPath)) {
         Write-Err "GUI script not found: $GuiScriptPath"
         exit 1
