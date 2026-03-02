@@ -1,0 +1,143 @@
+# Kali Linux (Full GUI) on Windows 11 via WSL2
+
+**Copyright (c) 2025 Jay Behi. All rights reserved.**  
+**Author: Jay Behi**
+
+Automated setup using a **PowerShell** script (Windows) and a **Bash** script (Kali) with input options.
+
+---
+
+## Quick start
+
+### Option 1: Full automated (PowerShell as Administrator)
+
+1. Open **PowerShell as Administrator**.
+2. Navigate to this folder:
+   ```powershell
+   cd "C:\Users\jay_b\OneDrive\Documents\Cursor\KALI\Windows WSL2 Installation"
+   ```
+3. Run:
+   ```powershell
+   .\install-wsl-kali.ps1
+   ```
+4. If prompted, **reboot** after `wsl --install`, then run the script again (use `-SkipWslInstall` if WSL is already installed).
+
+### Option 2: Kali already installed — only GUI setup
+
+From **PowerShell as Administrator** (with `install-kali-gui.sh` in this folder):
+
+```powershell
+.\install-wsl-kali.ps1 -RunGuiSetupOnly
+```
+
+Or inside Kali:
+
+```bash
+wsl -d kali-linux
+# then copy or access the script and run:
+sudo bash install-kali-gui.sh
+```
+
+---
+
+## Bash script: `install-kali-gui.sh` (run inside Kali)
+
+**Input options (interactive):**
+
+- **Desktop:** 1 = Full Kali XFCE (recommended), 2 = GNOME, 3 = Minimal XFCE  
+- **KEX:** Install/use Kali Win-KEX for GUI in a Windows window (Y/n)  
+- **Kali tools:** None / kali-linux-large / kali-linux-everything  
+
+**Non-interactive (env vars):**
+
+```bash
+# Defaults: Full XFCE, KEX yes, no extra tools
+sudo DESKTOP=1 INSTALL_KEX=y KALI_TOOLS=none bash install-kali-gui.sh
+
+# GNOME + KEX + large toolset
+sudo DESKTOP=2 INSTALL_KEX=y KALI_TOOLS=large bash install-kali-gui.sh
+```
+
+| Variable     | Values                          |
+|-------------|----------------------------------|
+| `DESKTOP`   | `1` (full XFCE), `2` (GNOME), `3` (minimal XFCE) |
+| `INSTALL_KEX` | `y` / `n`                    |
+| `KALI_TOOLS`  | `none`, `large`, `everything` |
+
+---
+
+## PowerShell script: `install-wsl-kali.ps1`
+
+**Parameters:**
+
+| Parameter           | Description |
+|--------------------|-------------|
+| `-SkipWslInstall`  | Skip `wsl --install` (WSL already installed) |
+| `-SkipKaliInstall` | Skip installing Kali (already installed) |
+| `-RunGuiSetupOnly` | Only run `install-kali-gui.sh` inside Kali |
+| `-GuiScriptPath`   | Path to `install-kali-gui.sh` (default: same folder) |
+| `-NonInteractive` | No prompts; use defaults and run GUI setup with defaults |
+
+**Examples:**
+
+```powershell
+# First time: install WSL + Kali (reboot when asked, then run again with -SkipWslInstall)
+.\install-wsl-kali.ps1
+
+# WSL already installed, install Kali and run GUI setup
+.\install-wsl-kali.ps1 -SkipWslInstall
+
+# Kali already installed, only run GUI setup
+.\install-wsl-kali.ps1 -RunGuiSetupOnly
+
+# Fully non-interactive (after WSL + Kali exist)
+.\install-wsl-kali.ps1 -SkipWslInstall -SkipKaliInstall -NonInteractive
+```
+
+---
+
+## After setup: start Kali GUI
+
+From PowerShell or Run dialog:
+
+```text
+wsl -d kali-linux kex --win -s
+```
+
+Optional: create a shortcut with that as the target.
+
+---
+
+## Optional: `.wslconfig` (resources)
+
+The script can create `C:\Users\YOURNAME\.wslconfig` with:
+
+```ini
+[wsl2]
+memory=8GB
+processors=4
+swap=4GB
+```
+
+Then run `wsl --shutdown` and reopen WSL for it to take effect.
+
+---
+
+## Troubleshooting
+
+- **GUI not launching:** In PowerShell (Admin): `wsl --update`
+- **Black screen:** In Kali: `kex --win --stop` then `kex --win -s`
+- **Check WSL version:** `wsl -l -v` — Kali should show version **2**
+
+---
+
+## Follow the Author
+
+```
+  ╔══════════════════════════════════════════════════════════╗
+  ║              Follow the Author on GitHub                ║
+  ║                                                          ║
+  ║     Jay Behi (tr0uble84)                                 ║
+  ║     https://github.com/tr0uble84/                        ║
+  ╚══════════════════════════════════════════════════════════╝
+```
