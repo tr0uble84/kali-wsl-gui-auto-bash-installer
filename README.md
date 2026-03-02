@@ -12,10 +12,16 @@ Automated setup using a **PowerShell** script (Windows) and a **Bash** script (K
 ### Option 1: Full automated (PowerShell as Administrator)
 
 1. Open **PowerShell as Administrator**.
-2. Navigate to this folder:
+2. Navigate to the folder containing the scripts:
+   **PowerShell:**
    ```powershell
-   cd "C:\Users\jay_b\OneDrive\Documents\Cursor\KALI\Windows WSL2 Installation"
+   cd "$env:USERPROFILE\Documents\Install-Kali"
    ```
+   **Command Prompt (cmd):**
+   ```cmd
+   cd "%USERPROFILE%\Documents\Install-Kali"
+   ```
+   If you cloned the repo elsewhere, use that path instead.
 3. Run:
    ```powershell
    .\install-wsl-kali.ps1
