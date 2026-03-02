@@ -131,14 +131,3 @@ if (Test-Path $GuiScriptPath) {
 }
 
 Write-Ok "Setup complete."
-Write-Host ""
-$follow = @'
-  +==========================================================+
-  |              Follow me on GitHub                          |
-  |                                                          |
-  |     Jay Behi (tr0uble84)                                 |
-  |     https://github.com/tr0uble84/                        |
-  +==========================================================+
-'@
-Write-Host $follow -ForegroundColor DarkCyan
-Write-Host ""

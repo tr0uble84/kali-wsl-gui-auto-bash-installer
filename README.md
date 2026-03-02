@@ -162,15 +162,3 @@ Then run `wsl --shutdown` and reopen WSL for it to take effect.
 - **Black screen:** In Kali: `kex --win --stop` then `kex --win -s`
 - **Check WSL version:** `wsl -l -v` — Kali should show version **2**
 
----
-
-## Follow me on GitHub
-
-```
-  ╔══════════════════════════════════════════════════════════╗
-  ║              Follow me on GitHub                            ║
-  ║                                                          ║
-  ║     Jay Behi (tr0uble84)                                 ║
-  ║     https://github.com/tr0uble84/                        ║
-  ╚══════════════════════════════════════════════════════════╝
-```
