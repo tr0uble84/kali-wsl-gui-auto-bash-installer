@@ -7,6 +7,33 @@ Automated setup using a **PowerShell** script (Windows) and a **Bash** script (K
 
 ---
 
+## Auto-download and run as Administrator
+
+Download the latest `install-wsl-kali.ps1` into `Documents\Install-Kali` and launch it in an **elevated (Administrator)** window. A UAC prompt will appear to allow Administrator access.
+
+**PowerShell (run in PowerShell):**
+
+```powershell
+$dir = "$env:USERPROFILE\Documents\Install-Kali"
+New-Item -ItemType Directory -Force -Path $dir | Out-Null
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-wsl-kali.ps1" -OutFile "$dir\install-wsl-kali.ps1" -UseBasicParsing
+Write-Host "Downloaded. Launching as Administrator..."
+Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$dir\install-wsl-kali.ps1`""
+```
+
+**Command Prompt (cmd):**
+
+```cmd
+if not exist "%USERPROFILE%\Documents\Install-Kali" mkdir "%USERPROFILE%\Documents\Install-Kali"
+curl -L -o "%USERPROFILE%\Documents\Install-Kali\install-wsl-kali.ps1" https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-wsl-kali.ps1
+echo Launching as Administrator...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File \"%USERPROFILE%\Documents\Install-Kali\install-wsl-kali.ps1\"'"
+```
+
+Approve the UAC prompt; the installer will run in the new Administrator window.
+
+---
+
 ## Quick start
 
 ### Option 1: Full automated (PowerShell as Administrator)
