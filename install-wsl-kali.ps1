@@ -59,8 +59,16 @@ if ($RunGuiSetupOnly) {
         exit 1
     }
     if (-not (Test-Path $GuiScriptPath)) {
-        Write-Err "GUI script not found: $GuiScriptPath"
-        exit 1
+        $guiUrl = "https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-kali-gui.sh"
+        Write-Info "GUI script not found. Downloading from repo..."
+        try {
+            Invoke-WebRequest -Uri $guiUrl -OutFile $GuiScriptPath -UseBasicParsing
+            Write-Ok "Downloaded install-kali-gui.sh to $GuiScriptPath"
+        } catch {
+            Write-Err "GUI script not found and download failed: $GuiScriptPath"
+            Write-Host "Download manually: $guiUrl" -ForegroundColor Yellow
+            exit 1
+        }
     }
     $wslPath = Get-WslPath $GuiScriptPath
     Write-Info "Running Kali GUI setup inside WSL: $GuiScriptPath"

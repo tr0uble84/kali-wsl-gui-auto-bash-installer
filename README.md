@@ -17,6 +17,7 @@ Download the latest `install-wsl-kali.ps1` into `Documents\Install-Kali` and lau
 $dir = "$env:USERPROFILE\Documents\Install-Kali"
 New-Item -ItemType Directory -Force -Path $dir | Out-Null
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-wsl-kali.ps1" -OutFile "$dir\install-wsl-kali.ps1" -UseBasicParsing
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-kali-gui.sh" -OutFile "$dir\install-kali-gui.sh" -UseBasicParsing
 Write-Host "Downloaded. Launching as Administrator..."
 Start-Process powershell -Verb RunAs -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -File `"$dir\install-wsl-kali.ps1`""
 ```
@@ -26,6 +27,7 @@ Start-Process powershell -Verb RunAs -ArgumentList "-NoExit -NoProfile -Executio
 ```cmd
 if not exist "%USERPROFILE%\Documents\Install-Kali" mkdir "%USERPROFILE%\Documents\Install-Kali"
 curl -L -o "%USERPROFILE%\Documents\Install-Kali\install-wsl-kali.ps1" https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-wsl-kali.ps1
+curl -L -o "%USERPROFILE%\Documents\Install-Kali\install-kali-gui.sh" https://raw.githubusercontent.com/tr0uble84/kali-wsl-gui-auto-bash-installer/main/install-kali-gui.sh
 echo Launching as Administrator...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process powershell -Verb RunAs -ArgumentList '-NoExit -NoProfile -ExecutionPolicy Bypass -File \"%USERPROFILE%\Documents\Install-Kali\install-wsl-kali.ps1\"'"
 ```
@@ -58,7 +60,7 @@ Approve the UAC prompt; the installer will run in the new Administrator window. 
 
 ### Option 2: Kali already installed — only GUI setup
 
-From **PowerShell as Administrator** (with `install-kali-gui.sh` in this folder):
+From **PowerShell as Administrator** in the folder with `install-wsl-kali.ps1` (if `install-kali-gui.sh` is missing, it will be downloaded automatically):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install-wsl-kali.ps1 -RunGuiSetupOnly
