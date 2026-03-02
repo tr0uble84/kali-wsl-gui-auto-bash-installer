@@ -131,11 +131,11 @@ Then run `wsl --shutdown` and reopen WSL for it to take effect.
 
 ---
 
-## Follow the Author
+## Follow me on GitHub
 
 ```
   ╔══════════════════════════════════════════════════════════╗
-  ║              Follow the Author on GitHub                ║
+  ║              Follow me on GitHub                            ║
   ║                                                          ║
   ║     Jay Behi (tr0uble84)                                 ║
   ║     https://github.com/tr0uble84/                        ║
