@@ -132,10 +132,13 @@ if (Test-Path $GuiScriptPath) {
 
 Write-Ok "Setup complete."
 Write-Host ""
-Write-Host "  +==========================================================+" -ForegroundColor DarkCyan
-Write-Host "  |              Follow me on GitHub                          |" -ForegroundColor DarkCyan
-Write-Host "  |                                                          |" -ForegroundColor DarkCyan
-Write-Host "  |     Jay Behi (tr0uble84)                                 |" -ForegroundColor DarkCyan
-Write-Host "  |     https://github.com/tr0uble84/                        |" -ForegroundColor DarkCyan
-Write-Host "  +==========================================================+" -ForegroundColor DarkCyan
+$follow = @'
+  +==========================================================+
+  |              Follow me on GitHub                          |
+  |                                                          |
+  |     Jay Behi (tr0uble84)                                 |
+  |     https://github.com/tr0uble84/                        |
+  +==========================================================+
+'@
+Write-Host $follow -ForegroundColor DarkCyan
 Write-Host ""
